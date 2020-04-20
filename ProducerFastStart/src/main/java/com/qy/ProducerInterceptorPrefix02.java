@@ -1,0 +1,30 @@
+package com.qy;
+
+import org.apache.kafka.clients.producer.ProducerInterceptor;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
+
+import java.util.Map;
+
+public class ProducerInterceptorPrefix02 implements ProducerInterceptor<String,String> {
+    // 消息序列化和计算分区之前调用
+    @Override
+    public ProducerRecord<String, String> onSend(ProducerRecord<String, String> producerRecord) {
+        String newValue = "prefix02 "+producerRecord.value();
+        return new ProducerRecord<>(producerRecord.topic(), producerRecord.partition(),producerRecord.timestamp(),producerRecord.key(),newValue,producerRecord.headers());
+    }
+
+    // callBack之前调用或者get返回之前调用
+    @Override
+    public void onAcknowledgement(RecordMetadata recordMetadata, Exception e) {
+        System.out.println("ProducerInterceptorPrefix02 onAcknowledgement");
+    }
+
+    @Override
+    public void close() {
+    }
+
+    @Override
+    public void configure(Map<String, ?> map) {
+    }
+}
