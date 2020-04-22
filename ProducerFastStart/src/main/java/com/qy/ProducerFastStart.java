@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 public class ProducerFastStart {
-    public static final String brokerList = "192.168.245.128:9092";
+    public static final String brokerList = "192.168.245.128:9092,192.168.245.129:9092,192.168.245.130:9092";
     public static final String topic = "topic-demo";
 
     public static void main(String[] args) {
